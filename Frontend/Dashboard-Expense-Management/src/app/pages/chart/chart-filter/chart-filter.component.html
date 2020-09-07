@@ -1,0 +1,87 @@
+<div class="row">
+  <div class="col-12">
+    <div class="card">
+      <div class="right-aside">
+
+        <div class="px-4 my-4">
+          <form #form="ngForm" (ngSubmit)="getChart()">
+            <mat-form-field class="mr-2 w-25">
+              <mat-label>From:</mat-label>
+              <input matInput [matDatepicker]="picker1" name="from" [(ngModel)]="fromDate" placeholder="Ex: 12/12/2019">
+              <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+              <mat-datepicker #picker1></mat-datepicker>
+            </mat-form-field>
+
+            <mat-form-field class="mr-2 w-25">
+              <mat-label>To:</mat-label>
+              <input matInput [matDatepicker]="picker2" name="to" [(ngModel)]="toDate" placeholder="Ex: 12/12/2020">
+              <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+              <mat-datepicker #picker2></mat-datepicker>
+            </mat-form-field>
+
+            <mat-form-field class="mr-4 w-25">
+              <mat-label>Chọn ví:</mat-label>
+              <mat-select name="wallet" #wallet="ngModel" [(ngModel)]="id" required>
+                <mat-option *ngFor="let w of wallets" value="{{w.walletId}}">{{w.wallertName}}</mat-option>
+              </mat-select>
+              <mat-error *ngIf="wallet.errors?.required">
+                Cần phải chọn ví thống kê
+              </mat-error>
+            </mat-form-field>
+            <button type="submit" class="btn btn-outline-primary" [disabled]="form.invalid">Check</button>
+          </form>
+        </div>
+
+        <div class="col-12 col-xl-12 mb-4 mt-4">
+          <div class="card border-1 rounded-0">
+            <div class="card-title mb-1 p-3 d-flex">
+              <h6 class="mx-auto">Tổng thu chi: {{a-b | currency:' ':'code':'4.0-0'}}đ</h6>
+              <!-- <a class="btn ml-auto p-0 text-lightning"> <i class="fas fa-ellipsis-h"></i> </a> -->
+            </div>
+            <div class="card-body">
+              <div class="chart-container" style="position: relative;">
+                <canvas id="chart-bar" width="2" height="1"></canvas>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row px-3 mb-4">
+          <div class="col-12 col-xl-6 align-items-stretch">
+            <div class="card h-100 border-1 rounded-0">
+              <div class="card-title mb-1 p-3 d-flex">
+                <div class="mx-auto">
+                  <h6>Tổng thu</h6>
+                  <h6 style="color: green;">+{{a | currency:' ':'code':'4.0-0'}}đ</h6>
+                </div>
+              </div>
+              <div class="card-body">
+                <div class="chart-container d-flex h-100 align-items-center justify-content-center"
+                  style="position: relative;">
+                  <canvas id="chart-income" style="height:100%"></canvas>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-12 col-xl-6 align-items-stretch">
+            <div class="card h-100 border-1 rounded-0">
+              <div class="card-title mb-1 p-3 d-flex">
+                <div class="mx-auto">
+                  <h6>Tổng chi</h6>
+                  <h6 style="color: red;">-{{b | currency:' ':'code':'4.0-0'}}đ</h6>
+                </div>
+              </div>
+              <div class="card-body">
+                <div class="chart-container d-flex h-100 align-items-center justify-content-center"
+                  style="position: relative;">
+                  <canvas id="chart-expense" style="height:100%"></canvas>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

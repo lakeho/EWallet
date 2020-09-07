@@ -1,0 +1,64 @@
+<div class="row">
+  <div class="col-12">
+    <div class="card">
+      <div class="contact-page-aside">
+        <div class="right-aside">
+          <div class="right-page-header">
+            <div class="form-group row ml-4 mt-4">
+              <form (ngSubmit)="searchWallet()">
+                <input type="text" name="search" placeholder=" Nhập tên ví" class="form-control" [(ngModel)]="walletName">
+                <button type="submit" class="btn btn-outline-primary mt-2 mb-4">Tìm kiếm</button>
+              </form>
+            </div>
+          </div>
+
+          <div class="right-aside" style="margin-top: 10px;">
+            <div class="right-page-header">
+              <div class="d-flex mr-4 ml-4">
+                <h5 style="margin-top: 5px;">DANH SÁCH VÍ</h5>
+                <div class="ml-auto" style="margin-left: 10px;">
+                  <!-- Nút thêm mới + xóa -->
+                  <button type="button" class="btn btn-danger">Xóa</button>
+                  <button style="margin-left: 10px;" type="button" class="btn btn-outline-primary"
+                    (click)="addWalletDialog()">Thêm mới</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="right-aside" style="margin-top: 10px;">
+            <div class="right-page-header">
+              <div class="d-flex mr-4 ml-4">
+                <!-- danh sách lưới ví -->
+                <div class="row row-cols-1 row-cols-md-3">
+                  <!-- 1 thẻ ví -->
+                  <div *ngFor="let w of wallets" class="col mb-4 mr-2">
+                    <div class="card border-secondary mb-3" style="width: 16rem;">
+                      <div class="card-header d-flex">
+                        <input type="checkbox" class="mt-2 mr-2" [disabled]="w.role==false">
+                        <a class="mt-1" routerLink="/wallet/{{w.walletId}}"> {{w.wallertName}}</a>
+                        <button class="btn btn-sm btn-outline-lightning rounded-0 ml-auto" [disabled]="w.role==false"
+                          (click)="deleteWallet(w.walletId)">
+                          <i class="far fa-window-close"></i>
+                        </button>
+                      </div>
+                      <div class="card-body text-secondary">
+                        <h5 class="card-title d-flex">+{{w.currency | currency:' ':'code':'4.0-0'}}đ
+                          <button class="btn btn-sm btn-outline-lightning rounded-0 ml-auto mb-2"
+                            (click)="updateWalletDialog(w)" [disabled]="w.role==false">
+                            <i class="far fa-edit"></i>
+                          </button>
+                        </h5>
+                        <p class="card-text">{{w.role ? "Sở hữu":"Thành viên"}}</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,70 @@
+<div class="d-flex justify-content-between">
+  <h4>Xác nhận thông tin</h4>
+  <button (click)="onClose()">Close</button>
+</div>
+<div class="container">
+  <mat-error *ngIf="wrong">
+    Người dùng không tồn tại!
+  </mat-error>
+  <form #form="ngForm" (ngSubmit)="infoConfirm()" autocomplete="off">
+    <!-- username -->
+    <mat-form-field style="width: 100%;">
+      <mat-label for=" ">Tên đăng nhập</mat-label>
+      <input matInput type="text " name="user" [(ngModel)]="username" #regUser="ngModel"
+       minlength="8" maxlength="30" pattern="^[A-Za-z0-9!@#$%^&*]+$" required>
+      <mat-error *ngIf="regUser.errors?.required">
+        Tên đăng nhập cần được điền
+      </mat-error>
+      <mat-error *ngIf="regUser.errors?.pattern">
+        Tên đăng nhập gồm chứ cái, số, ký tự đặc biệt, không cách
+      </mat-error>
+      <mat-error *ngIf="regUser.errors?.minlength">
+        Tên đăng nhập ít nhất 8 ký tự
+      </mat-error>
+      <mat-error *ngIf="regUser.errors?.maxlength">
+        Tên đăng nhập nhiều nhất 30 ký tự
+      </mat-error>
+    </mat-form-field>
+
+    <!--name-->
+    <mat-form-field style="width: 100%;">
+      <mat-label for=" ">Họ và tên</mat-label>
+      <input matInput type="text" name="name" [(ngModel)]="fullname" #regName="ngModel"
+      minlength="5" maxlength="100" pattern="^[A-Za-z ]+$">
+      <mat-error *ngIf="regName.errors?.required">
+        Họ và tên cần được điền
+      </mat-error>
+      <mat-error *ngIf="regName.errors?.pattern">
+        Họ và tên chỉ gồm chữ cái
+      </mat-error>
+      <mat-error *ngIf="regName.errors?.minlength">
+        Họ và tên ít nhất 5 ký tự
+      </mat-error>
+      <mat-error *ngIf="regName.errors?.maxlength">
+        Họ và tên nhiều nhất 100 ký tự
+      </mat-error>
+    </mat-form-field>
+
+    <!-- tel -->
+    <mat-form-field style="width: 100%;">
+      <mat-label for=" ">Số điện thoại</mat-label>
+      <input matInput type="text" name="tel" [(ngModel)]="phone" #regPhone="ngModel"
+      pattern="^0[0-9]{9}$" required>
+      <mat-error *ngIf="regPhone.errors?.required">
+        Số điện thoại cần được điền
+      </mat-error>
+      <mat-error *ngIf="regPhone.errors?.pattern">
+        Số điện thoại gồm 10 chữ số bắt đầu bằng 0
+      </mat-error>
+    </mat-form-field>
+    <br>
+    <mat-radio-group name="sex" [(ngModel)]="sex" #regSex="ngModel">
+      <mat-radio-button style="margin-right: 8px;" value="true" required>Nam</mat-radio-button>
+      <mat-radio-button value="false">Nữ</mat-radio-button>
+    </mat-radio-group>
+    <br>
+    <br>
+    <button type="submit" class="btn btn-outline-primary" [disabled]="form.invalid"> Xác nhận </button>
+    <button style="margin-left: 20px;" type="reset" class="btn btn-outline-primary" (click)="onClose()"> Hủy </button>
+  </form>
+</div>

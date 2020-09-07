@@ -1,0 +1,189 @@
+<h2 class="text-center" id="title">E-Wallet Mock Group 1</h2>
+<hr>
+<div class="row">
+
+  <div class="col-md-1">
+    <!-------null------>
+  </div>
+
+  <div class="col-md-4">
+    <form #regForm="ngForm" (ngSubmit)="signup()">
+      <fieldset>
+        <!-- <p class="text-uppercase pull-center"> ĐĂNG KÝ</p> -->
+        <legend>ĐĂNG KÝ</legend>
+        <mat-error *ngIf="existed">
+          Tên đăng nhập đã tồn tại
+        </mat-error>
+        <div class="form-group">
+          <mat-form-field style="width: 70%;">
+            <mat-label>Tên đăng nhập</mat-label>
+            <input matInput type="text" name="username" id="s-username" [(ngModel)]="user.userName"
+              placeholder="Ex: anhhtph07069" #regUser="ngModel" minlength="8" maxlength="30"
+              pattern="^[A-Za-z0-9!@#$%^&*]+$" required>
+            <mat-hint>
+              Tên đăng nhập gồm chữ, số, ký tự đặc biệt, không cách
+            </mat-hint>
+            <mat-error *ngIf="regUser.errors?.required">
+              Tên đăng nhập cần được điền
+            </mat-error>
+            <mat-error *ngIf="regUser.errors?.minlength">
+              Tên đăng nhập ít nhất 8 ký tự
+            </mat-error>
+            <mat-error *ngIf="regUser.errors?.maxlength">
+              Tên đăng nhập nhiều nhất 30 ký tự
+            </mat-error>
+            <mat-error *ngIf="regUser.errors?.pattern">
+              Tên đăng nhập gồm chữ, số, ký tự đặc biệt, không cách
+            </mat-error>
+          </mat-form-field>
+          <br>
+          <mat-form-field style="width: 70%;">
+            <mat-label>Họ và tên</mat-label>
+            <input matInput type="email" name="email" id="fullname" [(ngModel)]="user.name"
+              placeholder="Ex: Hồ Tuấn Anh" #regName="ngModel" minlength="5" maxlength="100" pattern="^[A-Za-z ]+$"
+              required>
+            <mat-hint>
+              Họ và tên chỉ gồm chữ cái
+            </mat-hint>
+            <mat-error *ngIf="regName.errors?.required">
+              Họ và tên cần được điền
+            </mat-error>
+            <mat-error *ngIf="regName.errors?.pattern">
+              Họ và tên chỉ gồm chữ cái
+            </mat-error>
+            <mat-error *ngIf="regName.errors?.minlength">
+              Họ và tên ít nhất 5 ký tự
+            </mat-error>
+            <mat-error *ngIf="regName.errors?.maxlength">
+              Họ và tên nhiều nhất 100 ký tự
+            </mat-error>
+          </mat-form-field>
+          <br>
+          <mat-form-field style="width: 70%;">
+            <mat-label>Số điện thoại</mat-label>
+            <input matInput type="tel" name="password" id="phone" [(ngModel)]="user.phoneNumber"
+              placeholder="Ex: 0969664516" #regPhone="ngModel" pattern="^0[0-9]{9}$" required>
+            <mat-hint>
+              Số điện thoại gồm 10 chữ số bắt đầu bằng 0
+            </mat-hint>
+            <mat-error *ngIf="regPhone.errors?.required">
+              Số điện thoại cần được điền
+            </mat-error>
+            <mat-error *ngIf="regPhone.errors?.pattern">
+              Số điện thoại gồm 10 chữ số bắt đầu bằng 0
+            </mat-error>
+          </mat-form-field>
+          <br><br>
+          <mat-radio-group name="sex" [(ngModel)]="user.gender" #regSex="ngModel" required>
+            <mat-radio-button style="margin-right: 8px;" value="true">Nam</mat-radio-button>
+            <mat-radio-button value="false">Nữ</mat-radio-button>
+          </mat-radio-group>
+          <br>
+          <mat-form-field style="width: 70%;">
+            <mat-label>Mật khẩu</mat-label>
+            <input matInput [type]="hide ? 'password' : 'text'" name="password2" id="s-pass" [(ngModel)]="user.passWord"
+              placeholder="Ít nhất 6 ký tự, không có ký tự đặc biệt" #regPass='ngModel' minlength="8" maxlength="30"
+              pattern="^[A-Za-z0-9!@#$%^&*]+$">
+            <mat-icon style="cursor: pointer;" matSuffix (click)="hide = !hide">
+              {{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+            <mat-hint>
+              Mật khẩu gồm chữ, số, ký tự đặc biệt, không cách
+            </mat-hint>
+            <mat-error *ngIf="regPass.errors?.required">
+              Mật khẩu cần được điền
+            </mat-error>
+            <mat-error *ngIf="regPass.errors?.minlength">
+              Mật khẩu ít nhất 8 ký tự
+            </mat-error>
+            <mat-error *ngIf="regPass.errors?.maxlength">
+              Mật khẩu nhiều nhất 30 ký tự
+            </mat-error>
+            <mat-error *ngIf="regPass.errors?.pattern">
+              Mật khẩu gồm chữ, số, ký tự đặc biệt, không cách
+            </mat-error>
+          </mat-form-field>
+          <br>
+          <mat-form-field style="width: 70%;">
+            <mat-label>Nhập lại mật khẩu</mat-label>
+            <input matInput [type]="hide ? 'password' : 'text'" name="password2" id="repass" [(ngModel)]="repass"
+              #regRepass="ngModel" required>
+            <mat-icon style="cursor: pointer;" matSuffix (click)="hide = !hide">
+              {{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+            <mat-hint>
+              Nhập lại mật khẩu giống như trên
+            </mat-hint>
+            <mat-error *ngIf="regRepass.errors?.required">
+              Cần nhập lại mật khẩu
+            </mat-error>
+          </mat-form-field>
+          <br>
+          <input type="submit" class="btn btn-outline-primary mt-3" value=" Đăng ký" [disabled]="regForm.invalid">
+        </div>
+      </fieldset>
+    </form>
+  </div>
+
+  <div class="col-md-2">
+    <!-------null------>
+  </div>
+
+  <div class="col-md-4">
+    <form #loginForm="ngForm" (ngSubmit)="login()">
+      <fieldset>
+        <!-- <p class="text-uppercase pull-center"> ĐĂNG KÝ</p> -->
+        <legend>ĐĂNG NHẬP</legend>
+        <div class="form-group">
+          <mat-error *ngIf="wrong">Sai tên đăng nhập hoặc mật khẩu</mat-error>
+          <mat-form-field style="width: 70%;">
+            <mat-label>Tên đăng nhập</mat-label>
+            <input matInput type="text" name="username" id="l-username" placeholder="Ex: anhhtph07069"
+              [(ngModel)]="request.userName" #loginUser="ngModel" minlength="8" maxlength="30" pattern="^[A-Za-z0-9!@#$%^&*]+$"
+              required>
+            <mat-error *ngIf="loginUser.errors?.required">
+              Tên đăng nhập cần được điền
+            </mat-error>
+            <mat-error *ngIf="loginUser.errors?.pattern">
+              Tên đăng nhập gồm chữ, số, ký tự đặc biệt, không cách
+            </mat-error>
+            <mat-error *ngIf="loginUser.errors?.minlength">
+              Tên đăng nhập ít nhất 8 ký tự
+            </mat-error>
+            <mat-error *ngIf="loginUser.errors?.maxlength">
+              Tên đăng nhập nhiều nhất 30 ký tự
+            </mat-error>
+          </mat-form-field>
+
+          <br>
+          <mat-form-field style="width: 70%;">
+            <mat-label>Mật khẩu</mat-label>
+            <input matInput [type]="hide ? 'password' : 'text'" name="password2" id="l-pass" [(ngModel)]="request.passWord"
+              #loginPass="ngModel" minlength="8" maxlength="30" pattern="^[A-Za-z0-9!@#$%^&*]+$" required>
+            <mat-icon style="cursor: pointer;" matSuffix (click)="hide = !hide">
+              {{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+            <mat-error *ngIf="loginPass.errors?.required">
+              Mật khẩu cần được điền
+            </mat-error>
+            <mat-error *ngIf="loginPass.errors?.minlength">
+              Mật khẩu ít nhất 8 ký tự
+            </mat-error>
+            <mat-error *ngIf="loginPass.errors?.maxlength">
+              Mật khẩu nhiều nhất 30 ký tự
+            </mat-error>
+            <mat-error *ngIf="loginPass.errors?.pattern">
+              Mật khẩu gồm chữ, số, ký tự đặc biệt, không cách
+            </mat-error>
+          </mat-form-field>
+          <br>
+          <a id="qmk" (click)="forgetPassDialog()" style="cursor: pointer;">Quên mật khẩu?</a><br>
+          <input type="submit" style="margin-top: 8px;" class="btn btn-outline-primary" value=" Đăng nhập"
+            [disabled]="loginForm.invalid">
+        </div>
+      </fieldset>
+    </form>
+  </div>
+
+  <div class="col-md-1">
+    <!-------null------>
+  </div>
+
+</div>

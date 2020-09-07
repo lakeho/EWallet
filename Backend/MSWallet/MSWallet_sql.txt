@@ -1,0 +1,171 @@
+--- name database: dbSMWall
+--- name SID: dbSMWallet
+
+
+
+--
+-- create table
+--
+
+---- table users
+create table users
+(
+    user_id int not null,
+    user_name varchar(50) not null,
+    name varchar(100) not null,
+    password varchar(30) not null,
+    phone_number int not null,
+    gender varchar(20) not null,
+    path_ava VARCHAR(200)
+);
+
+---- table wallet
+create table wallet
+(
+    wallet_id int not null,
+    wallert_name varchar(100) not null,
+    balance int not null,
+    currency int not null,
+    create_date date not null
+);
+
+---- table user_wallet
+create table user_wallet
+(
+    user_wallet_id int not null,
+    user_id int not null,
+    wallet_id int not null,
+    role int not null
+);
+
+---- table password_reset_token
+create table password_reset_token
+(
+    tokenID int not null,
+    token varchar(45) not null,
+    expiry_date date not null,
+    user_id int not null
+);
+
+---- table category
+create table category
+(
+    category_id int not null,
+    categoryName varchar(100) not null
+);
+
+---- table transactions
+create table transactions
+(
+    trans_id int not null,
+	tran_name int not null,
+    amount int not null,
+    trans_type int not null,
+    datetime date not null,
+    note varchar(2000),
+    user_id int not null,
+    wallet_id int not null,
+    category_id int not null
+);
+
+
+--
+-- create primary key
+--
+
+alter table users add constraint user_pk primary key(user_id);
+alter table wallet add constraint wallet_pk primary key(wallet_id);
+alter table user_wallet add constraint user_wallet_pk primary key(user_wallet_id);
+alter table password_reset_token add constraint token_pk primary key(tokenID);
+alter table category add constraint category_pk primary key(category_id);
+alter table transactions add constraint trans_pk primary key(trans_id);
+
+
+--
+-- foreign key
+--
+
+ALTER TABLE user_wallet ADD CONSTRAINT FK_user FOREIGN KEY (user_id) REFERENCES users(user_id);
+ALTER TABLE password_reset_token ADD CONSTRAINT FK_reset_token FOREIGN KEY (user_id) REFERENCES users(user_id);
+ALTER TABLE wallet ADD CONSTRAINT FK_wallet FOREIGN KEY (wallet_id) REFERENCES wallet(wallet_id);
+ALTER TABLE transactions ADD CONSTRAINT FK_transactions_category FOREIGN KEY (category_id) REFERENCES category(category_id);
+ALTER TABLE transactions ADD CONSTRAINT FK_transactions_users FOREIGN KEY (user_id) REFERENCES users(user_id);
+ALTER TABLE transactions ADD CONSTRAINT FK_transactions_wallet FOREIGN KEY (wallet_id) REFERENCES wallet(wallet_id);
+
+
+
+--
+-- Insert Data
+--
+
+--- insert table users
+Insert Into users(user_id, user_name, name, password, phone_number, gender, path_ava)
+Values(1,'dinhthi@gmail.com', 'thi', '123456', 0964446666, 'nam', 'abc/abc/abc.jpg');
+Insert Into users(user_id, user_name, name, password, phone_number, gender, path_ava)
+Values(2,'tuananh@gmail.com', 'tuan', '123456', 0964446667, 'nu', 'abc/abc/abc1.jpg');
+Insert Into users(user_id, user_name, name, password, phone_number, gender, path_ava)
+Values(3,'daodung@gmail.com', 'dung', '123456', 0964446668, 'nam', 'abc/abc/abc2.jpg');
+Insert Into users(user_id, user_name, name, password, phone_number, gender, path_ava)
+Values(4,'tuandung@gmail.com', 'dao', '123456', 0964446669, 'nu', 'abc/abc/abc3.jpg');
+Insert Into users(user_id, user_name, name, password, phone_number, gender, path_ava)
+Values(5,'thithi@gmail.com', 'thithi', '123456', 0964446665, 'nu', 'abc/abc/abc4.jpg');
+
+--- insert table wallet
+Insert Into wallet(wallet_id, wallert_name, balance, currency, create_date)
+values(1, 'Đàn Ông', 20000000, 20000000, TO_DATE('10/01/2010', 'dd/mm/yyyy'));
+Insert Into wallet(wallet_id, wallert_name, balance, currency, create_date)
+values(2, 'Cộng Đồng Quỹ Đen', 25000000, 30000000, TO_DATE('01/10/2012', 'dd/mm/yyyy'));
+Insert Into wallet(wallet_id, wallert_name, balance, currency, create_date)
+values(3, 'Inter', 50000000, 10000000, TO_DATE('16/09/2014', 'dd/mm/yyyy'));
+Insert Into wallet(wallet_id, wallert_name, balance, currency, create_date)
+values(4, 'Xa rời tổ quốc', 76500000, 105000000, TO_DATE('09/06/2016', 'dd/mm/yyyy'));
+Insert Into wallet(wallet_id, wallert_name, balance, currency, create_date)
+values(5, 'Lý tưởng của Bác', 32000000, 13000000, TO_DATE('15/07/2018', 'dd/mm/yyyy'));
+
+--- insert table password_reset_token
+Insert Into password_reset_token(tokenID, token, expiry_date, user_id)
+values(1, 'abcTokenabc', TO_DATE('10000', 'sssss'), 1);
+Insert Into password_reset_token(tokenID, token, expiry_date, user_id)
+values(2, 'bcdTokenbcd', TO_DATE('10000', 'sssss'), 2);
+Insert Into password_reset_token(tokenID, token, expiry_date, user_id)
+values(3, 'cdeTokencde', TO_DATE('10000', 'sssss'), 3);
+Insert Into password_reset_token(tokenID, token, expiry_date, user_id)
+values(4, 'defTokendef', TO_DATE('10000', 'sssss'), 4);
+Insert Into password_reset_token(tokenID, token, expiry_date, user_id)
+values(5, 'efgTokenefg', TO_DATE('10000', 'sssss'), 5);
+
+--- insert table user_wallet
+Insert Into user_wallet(user_wallet_id, user_id, wallet_id, role)
+values(1, 1, 1, 1);
+Insert Into user_wallet(user_wallet_id, user_id, wallet_id, role)
+values(2, 3, 2, 0);
+Insert Into user_wallet(user_wallet_id, user_id, wallet_id, role)
+values(3, 4, 3, 1);
+Insert Into user_wallet(user_wallet_id, user_id, wallet_id, role)
+values(4, 5, 4, 0);
+Insert Into user_wallet(user_wallet_id, user_id, wallet_id, role)
+values(5, 2, 5, 0);
+
+--- insert table category
+Insert Into category(category_id, categoryName)
+values(1, 'Khoa Học');
+Insert Into category(category_id, categoryName)
+values(2, 'Công Nghệ');
+Insert Into category(category_id, categoryName)
+values(3, 'Giáo Dục');
+Insert Into category(category_id, categoryName)
+values(4, 'Y Tế');
+Insert Into category(category_id, categoryName)
+values(5, 'Du Lịch - Khám Phá');
+
+--- insert table transactions
+Insert Into transactions(trans_id, amount, trans_type, datetime, note, user_id, wallet_id, category_id)
+values(1, 15000000, 0, TO_DATE('10/03/2020', 'dd/mm/yyyy'), 'aaa', 1, 3, 2);
+Insert Into transactions(trans_id, amount, trans_type, datetime, note, user_id, wallet_id, category_id)
+values(2, 25000000, 1, TO_DATE('11/04/2020', 'dd/mm/yyyy'), 'aab', 2, 4, 3);
+Insert Into transactions(trans_id, amount, trans_type, datetime, note, user_id, wallet_id, category_id)
+values(3, 35000000, 1, TO_DATE('12/05/2020', 'dd/mm/yyyy'), 'aac', 3, 5, 4);
+Insert Into transactions(trans_id, amount, trans_type, datetime, note, user_id, wallet_id, category_id)
+values(4, 45000000, 0, TO_DATE('13/06/2020', 'dd/mm/yyyy'), 'aad', 4, 1, 5);
+Insert Into transactions(trans_id, amount, trans_type, datetime, note, user_id, wallet_id, category_id)
+values(5, 55000000, 1, TO_DATE('14/07/2020', 'dd/mm/yyyy'), 'aae', 5, 2, 1);

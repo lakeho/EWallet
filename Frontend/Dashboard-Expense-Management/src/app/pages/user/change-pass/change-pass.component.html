@@ -1,0 +1,86 @@
+<div class="d-flex justify-content-between">
+  <h4>Đổi mật khẩu</h4>
+  <button (click)="onClose()">Close</button>
+</div>
+<div class="container">
+  <mat-error *ngIf="wrong">
+    Nhập sai mật khẩu
+  </mat-error>
+  <form #form="ngForm" (ngSubmit)="changePass()" autocomplete="off">
+    <!-- old pass -->
+    <mat-form-field style="width: 100%;">
+      <mat-label for=" ">Mật khẩu cũ</mat-label>
+      <input matInput [type]="hide ? 'password' : 'text'" name="old" [(ngModel)]="oldPass" #oPass="ngModel"
+        minlength="8" maxlength="30" pattern="^[A-Za-z0-9!@#$%^&*]+$" required>
+      <mat-icon style="cursor: pointer;" matSuffix (click)="hide = !hide">
+        {{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+      <mat-error *ngIf="oPass.errors?.required">
+        Mật khẩu cần được điền
+      </mat-error>
+      <mat-error *ngIf="oPass.errors?.minlength">
+        Mật khẩu phải nhiều hơn 7 ký tự
+      </mat-error>
+      <mat-error *ngIf="oPass.errors?.maxlength">
+        Mật khẩu phải ít hơn 31 ký tự
+      </mat-error>
+      <mat-error *ngIf="oPass.errors?.pattern">
+        Mật khẩu gồm chữ, số, ký tự đặc biệt, không cách
+      </mat-error>
+    </mat-form-field>
+
+    <!--new pass-->
+    <mat-form-field style="width: 100%;">
+      <mat-label for=" ">Mật khẩu mới</mat-label>
+      <input matInput [type]="hide ? 'password' : 'text'" name="new" [(ngModel)]="newPass" #nPass="ngModel"
+        minlength="8" maxlength="30" pattern="^[A-Za-z0-9!@#$%^&*]+$" required>
+      <mat-icon style="cursor: pointer;" matSuffix (click)="hide = !hide">
+        {{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+      <mat-hint>
+        Mật khẩu gồm chữ, số, ký tự đặc biệt, không cách
+      </mat-hint>
+      <mat-error *ngIf="nPass.errors?.required">
+        Mật khẩu cần được điền
+      </mat-error>
+      <mat-error *ngIf="nPass.errors?.minlength">
+        Mật khẩu phải nhiều hơn 7 ký tự
+      </mat-error>
+      <mat-error *ngIf="nPass.errors?.maxlength">
+        Mật khẩu phải ít hơn 31 ký tự
+      </mat-error>
+      <mat-error *ngIf="nPass.errors?.pattern">
+        Mật khẩu gồm chữ, số, ký tự đặc biệt, không cách
+      </mat-error>
+    </mat-form-field>
+
+    <!-- confirm pass -->
+    <mat-form-field style="width: 100%;">
+      <mat-label for=" ">Nhập lại mật khẩu</mat-label>
+      <input matInput [type]="hide ? 'password' : 'text'" name="re" [(ngModel)]="rePass" #rPass="ngModel" minlength="8"
+        maxlength="30" pattern="^[A-Za-z0-9!@#$%^&*]+$" required>
+      <mat-icon style="cursor: pointer;" matSuffix (click)="hide = !hide">
+        {{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+      <mat-hint>
+        Nhập lại mật khẩu như trên
+      </mat-hint>
+      <mat-error *ngIf="rPass.errors?.required">
+        Mật khẩu cần được nhập lại
+      </mat-error>
+      <mat-error *ngIf="rPass.errors?.minlength">
+        Mật khẩu phải nhiều hơn 7 ký tự
+      </mat-error>
+      <mat-error *ngIf="rPass.errors?.maxlength">
+        Mật khẩu phải ít hơn 31 ký tự
+      </mat-error>
+      <mat-error *ngIf="rPass.errors?.pattern">
+        Mật khẩu gồm chữ, số, ký tự đặc biệt, không cách
+      </mat-error>
+    </mat-form-field>
+    <br>
+    <div class="d-flex mt-4">
+      <button type="submit" class="btn btn-outline-primary" [disabled]="form.invalid"> Lưu </button>
+      <div class="ml-auto">
+        <button style="margin-left: 20px;" class="btn btn-outline-primary" (click)="onClose()"> Hủy </button>
+      </div>
+    </div>
+  </form>
+</div>

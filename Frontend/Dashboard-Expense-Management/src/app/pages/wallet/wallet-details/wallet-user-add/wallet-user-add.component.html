@@ -1,0 +1,22 @@
+<div class="d-flex justify-content-between">
+  <h4>Chia sẻ ví</h4>
+  <button (click)="onClose()">Close</button>
+</div>
+<div class="container">
+  <form #form="ngForm" (ngSubmit)="addUser()" autocomplete="off">
+    <div class="form-group ">
+      <mat-form-field style="width: 100%;">
+        <mat-label>Chia sẻ với:</mat-label>
+        <input matInput type="text" name="name" placeholder="Ex: lakeho, wendy, Alice" [(ngModel)]="newMembers"
+         #names="ngModel" required>
+        <mat-error *ngIf="names.errors?.required">
+          Cần nhập tên người được chia sẻ với
+        </mat-error>
+      </mat-form-field>
+    </div>
+    <button type="submit" class="btn btn-outline-primary" [disabled]="form.invalid"> Mời </button>
+    <button style="margin-left: 20px;" type="reset" class="btn btn-outline-primary"> Hủy </button>
+  </form>
+
+</div>
+<!-- [disabled]="form.invalid" -->

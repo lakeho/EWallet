@@ -1,0 +1,64 @@
+<div class="row">
+  <div class="col-12">
+    <div class="card">
+      <!-- .left-right-aside-column-->
+      <div class="contact-page-aside">
+        <!-- .left-aside-column-->
+
+        <!-- /.left-aside-column-->
+        <div class="right-aside" style="margin-top: 20px;">
+          <div class="right-page-header">
+            <div class="d-flex mr-4 ml-4">
+              <h5>CHI TIẾT VÍ</h5>
+            </div>
+          </div>
+
+          <div class="right-aside" style="margin-top: 10px;">
+            <div class="right-page-header">
+              <div class="d-flex mr-4 ml-4">
+
+                <!-- 1 thẻ ví -->
+                <div style="margin:auto;">
+                  <div class="card border-secondary mb-3" style="width: 25rem;">
+                    <div class="card-header">
+                      <b>{{walletName}}</b>
+                    </div>
+                    <div class="card-body text-secondary">
+                      <h5 class="card-title d-flex">Người dùng
+                        <button class="btn btn-sm btn-outline-lightning rounded-1 ml-auto" style="margin-left: 120px;"
+                          (click)="addUserDialog()" [disabled]="!owned">
+                          <i class="fas fa-plus"></i>
+                        </button>
+                      </h5>
+
+                      <table border="0">
+                        <div *ngFor="let u of users">
+                          <tr>
+                            <td style="width: 160px;"><label style="color: red;">{{u.name}}</label></td>
+                            <td style="width: 100px;" rowspan="2"><label>{{u.role ? "Sở hữu":"Thành viên"}}</label></td>
+                            <td rowspan="2">
+                              <button class="btn btn-sm btn-outline-lightning rounded-0 ml-4"
+                                (click)="deleteUser(u.userId)" [disabled]="!owned">
+                                <i class="far fa-window-close"></i>
+                              </button>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td><label>{{u.userName}}</label></td>
+                          </tr><br />
+                        </div>
+
+                      </table>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- /.left-right-aside-column-->
+      </div>
+    </div>
+  </div>
+</div>

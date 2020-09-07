@@ -1,0 +1,28 @@
+<div class="d-flex justify-content-between">
+  <h4>Chỉnh sửa ví</h4>
+  <button (click)="onClose()">Close</button>
+</div>
+
+<div class="container">
+  <form #form="ngForm" (ngSubmit)="updateWallet()" autocomplete="off">
+    <!-- wallet_name -->
+    <mat-form-field style="width: 100%;">
+      <mat-label for=" ">Tên ví</mat-label>
+      <input matInput type="text" name="name" [(ngModel)]="wallet.wallertName" #name=ngModel required>
+      <mat-error *ngIf="name.errors?.required">
+        Tên ví cần được điền
+      </mat-error>
+    </mat-form-field>
+    <!--currency-->
+    <mat-form-field style="width: 100%;">
+      <mat-label for=" ">Số tiền hiện tại</mat-label>
+      <input matInput type="number" name="currency" [(ngModel)]="wallet.currency" #currency="ngModel" required>
+      <mat-error *ngIf="currency.errors?.required">
+        Số tiền hiện tại cần được điền
+      </mat-error>
+    </mat-form-field>
+    <br><br>
+    <button type="submit" class="btn btn-outline-primary" [disabled]="form.invalid"> Cập nhật </button>
+    <button style="margin-left: 20px;" class="btn btn-outline-primary" (click)="onClose()"> Hủy </button>
+  </form>
+</div>
